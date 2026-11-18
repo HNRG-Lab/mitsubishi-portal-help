@@ -1,0 +1,6 @@
+# File di lavoro e originali non sfocati: non devono finire nel repository
+*.mov
+*_noblur*
+_to_delete/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guida al portale e-commerce B2B</title>
+<meta name="description" content="Video tutorial e istruzioni passo-passo per l'uso del portale e-commerce B2B.">
+<style>
+/* Stile ispirato al portale (SAP Composable Storefront): Roboto, bianco/nero, accento rosso.
+   Nessun font remoto: si usa Roboto se installato, altrimenti font di sistema (no chiamate a terze parti). */
+:root{
+  --red:#db0002; --red-dark:#b00002; --black:#000; --text:#3c3c3c; --muted:#6c7079;
+  --bg:#f6f6f6; --light:#f1f1f1; --line:#e0e0e0; --white:#fff; --info:#17a2b8; --warn:#ffc107; --ok:#38871f;
+  --header-h:72px; --radius:2px;
+  --font: Roboto, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);font-weight:300;color:var(--text);background:var(--white);font-size:17px;line-height:1.55}
+a{color:var(--black)}
+h1,h2,h3{font-weight:500;color:var(--black);line-height:1.2}
+button{font-family:inherit}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Header */
+.topbar{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--line);height:var(--header-h)}
+.topbar .wrap{max-width:1400px;margin:0 auto;height:100%;display:flex;align-items:center;gap:20px;padding:0 24px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--black);min-width:0}
+.brand img{height:42px;width:auto}
+.brand .title{display:flex;flex-direction:column;line-height:1.15;border-left:1px solid var(--line);padding-left:14px}
+.brand .title b{font-weight:500;font-size:17px;white-space:nowrap}
+.brand .title span{font-size:13px;color:var(--muted);white-space:nowrap}
+.search{margin-left:auto;position:relative;flex:0 1 380px}
+.search input{width:100%;border:0;border-bottom:1px solid var(--black);padding:10px 36px 8px 2px;font:inherit;font-size:15px;background:transparent;outline:none}
+.search input::placeholder{font-style:italic;color:#888}
+.search svg{position:absolute;right:4px;top:10px}
+.search-results{position:absolute;top:46px;right:0;left:0;background:var(--white);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:60vh;overflow:auto;display:none}
+.search-results.open{display:block}
+.search-results a{display:block;padding:10px 14px;text-decoration:none;border-bottom:1px solid var(--light);font-size:15px}
+.search-results a:hover,.search-results a:focus{background:var(--bg)}
+.search-results small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.search-results .none{padding:12px 14px;color:var(--muted);font-size:14px}
+.menu-btn{display:none;background:var(--black);color:#fff;border:0;width:44px;height:44px;cursor:pointer}
+
+/* Hero + breadcrumb */
+.hero{background:linear-gradient(120deg,#000 0%,#1b1b1b 55%,#3a0000 100%);color:#fff;text-align:center;padding:56px 24px 48px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 80px)}
+.hero h1{color:#fff;font-size:clamp(28px,4vw,44px);margin:0 0 10px;position:relative;z-index:1}
+.hero p{margin:0 auto;max-width:720px;font-size:18px;opacity:.88;position:relative;z-index:1}
+.crumbs{background:var(--black);color:#fff;font-size:15px}
+.crumbs .wrap{max-width:1400px;margin:0 auto;padding:12px 24px}
+.crumbs a{color:#fff;text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.crumbs span.sep{margin:0 8px;opacity:.6}
+
+/* Layout */
+.layout{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:0;align-items:start}
+nav.side{position:sticky;top:var(--header-h);max-height:calc(100vh - var(--header-h));overflow:auto;background:var(--bg);border-right:1px solid var(--line);padding:18px 0 40px}
+nav.side .ch{margin:0 0 6px}
+nav.side .ch-title{display:flex;align-items:center;gap:10px;padding:10px 22px;font-weight:500;color:var(--black);font-size:15px;text-transform:uppercase;letter-spacing:.03em}
+nav.side .ch-title .n{display:inline-grid;place-items:center;width:24px;height:24px;background:var(--black);color:#fff;font-size:12px;border-radius:50%}
+nav.side ul{list-style:none;margin:0;padding:0}
+nav.side li a{display:block;padding:7px 22px 7px 56px;text-decoration:none;font-size:15px;color:var(--text);border-left:3px solid transparent}
+nav.side li a:hover{background:var(--light);color:var(--black)}
+nav.side li a.active{border-left-color:var(--red);color:var(--red);font-weight:500;background:var(--white)}
+nav.side li a{display:flex!important;justify-content:space-between;gap:8px}
+nav.side li a .vid{font-size:10px;color:var(--muted);margin-top:5px;flex:none}
+main{padding:32px 40px 64px;min-width:0}
+
+/* Home */
+.intro{max-width:900px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin-top:28px}
+.card{background:var(--bg);padding:22px 22px 18px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:8px;border-bottom:3px solid transparent;transition:border-color .15s, background .15s}
+.card:hover{border-bottom-color:var(--red);background:var(--light)}
+.card h3{margin:0;font-size:19px;display:flex;gap:10px;align-items:center}
+.card h3 .n{display:inline-grid;place-items:center;width:28px;height:28px;background:var(--black);color:#fff;font-size:13px;border-radius:50%;flex:none}
+.card p{margin:0;font-size:15px}
+.card .go{margin-top:auto;font-weight:500;color:var(--red);font-size:14px}
+.quick{margin-top:36px;background:var(--black);color:#fff;padding:24px 26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.quick h3{color:#fff;margin:0 0 4px;font-size:16px}
+.quick p{margin:0;font-size:14px;opacity:.85}
+
+/* Topic */
+.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--red);font-weight:500;margin:0 0 6px}
+.topic h1{font-size:clamp(26px,3vw,34px);margin:0 0 12px}
+.lead{font-size:18px;max-width:900px;margin:0 0 24px}
+.player{background:#000;margin:0 0 10px;position:relative}
+.player video{width:100%;display:block;max-height:calc(100vh - var(--header-h) - 120px);background:#000}
+.player-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 20px;font-size:13px;color:var(--muted)}
+.player-bar .label{margin-right:auto}
+.chip{border:1px solid var(--black);background:var(--white);color:var(--black);padding:5px 10px;font-size:13px;font-weight:500;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--black);color:#fff}
+.vtabs{display:flex;gap:0;margin:0 0 0;border-bottom:1px solid var(--line)}
+.vtabs button{border:0;background:none;padding:10px 16px;font-size:15px;cursor:pointer;border-bottom:3px solid transparent;color:var(--text)}
+.vtabs button[aria-selected="true"]{border-bottom-color:var(--red);color:var(--black);font-weight:500}
+.novideo{background:var(--bg);border:1px dashed #bbb;padding:36px;text-align:center;color:var(--muted);margin:0 0 28px}
+
+/* Video affiancato ai passaggi */
+.study{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(340px,1fr);gap:28px;align-items:start}
+.study .media{position:sticky;top:calc(var(--header-h) + 14px)}
+.study.wide,.study.novid{grid-template-columns:1fr}
+.study.wide .media{position:static}
+.study .text{min-width:0}
+.study .text>.callout{margin-top:16px}
+.player-bar .rates{display:inline-flex;gap:6px}
+ol.steps>li.linked{cursor:pointer;border-radius:2px;transition:background .15s}
+ol.steps>li.linked:hover{background:rgba(0,0,0,.035)}
+ol.steps>li.active{background:#fff;box-shadow:inset 3px 0 0 var(--red)}
+ol.steps>li.active::before{background:var(--red)}
+ol.steps>li{padding-right:6px}
+.seek{display:inline-flex;align-items:center;gap:4px;margin:0 8px 4px 0;padding:2px 8px;border:1px solid var(--black);background:var(--black);color:#fff;font:500 12px/1.6 var(--font);cursor:pointer;vertical-align:middle;border-radius:2px;white-space:nowrap}
+.seek small{font-size:10px;opacity:.75;font-weight:400}
+.seek:hover,.seek:focus-visible{background:var(--red);border-color:var(--red)}
+li.active .seek{background:var(--red);border-color:var(--red)}
+.seek.demo{cursor:default}
+@media (max-width:1200px){.study{grid-template-columns:1fr}.study .media{position:static}#wideBtn{display:none}}
+.note-small{font-size:14px;color:var(--muted);margin:4px 0 0}
+.panel h3{font-size:17px;margin:18px 0 12px}
+.panel{background:var(--bg);padding:22px 24px}
+.panel h2{font-size:18px;margin:0 0 12px;text-transform:uppercase;letter-spacing:.03em}
+ol.steps{counter-reset:s;list-style:none;margin:0;padding:0}
+ol.steps>li{counter-increment:s;position:relative;padding:0 0 16px 46px;margin:0}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;display:grid;place-items:center;background:var(--black);color:#fff;font-weight:500;font-size:14px;border-radius:50%}
+ol.steps>li:not(:last-child)::after{content:"";position:absolute;left:14.5px;top:32px;bottom:2px;width:1px;background:#c9c9c9}
+ol.steps ul{margin:6px 0 0;padding-left:18px}
+.ui{display:inline-block;font-weight:500;color:var(--black);background:var(--white);border:1px solid var(--black);padding:0 6px;font-size:.88em;white-space:nowrap}
+.ui.dark{background:var(--black);color:#fff}
+.ui.red{border-color:var(--red);color:var(--red)}
+kbd{font-family:Consolas,monospace;background:var(--white);border:1px solid #bbb;border-bottom-width:2px;padding:0 5px;font-size:.9em}
+.callout{border-left:4px solid var(--info);background:#eef8fa;padding:14px 16px;margin:0 0 16px;font-size:15px}
+.callout b{font-weight:500;color:var(--black)}
+.callout.warn{border-left-color:var(--warn);background:#fff8e1}
+.callout.important{border-left-color:var(--red);background:#fdeeee}
+.callout.tip{border-left-color:var(--ok);background:#eef6eb}
+dl.gloss{margin:0}
+dl.gloss dt{font-weight:500;color:var(--black);margin-top:12px}
+dl.gloss dd{margin:2px 0 0;font-size:15px}
+table.fields{border-collapse:collapse;width:100%;font-size:15px;margin:6px 0 18px}
+table.fields th{background:var(--black);color:#fff;text-align:left;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px}
+table.fields td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;background:var(--white)}
+table.fields td:first-child{font-weight:500;color:var(--black);white-space:nowrap}
+.pager{display:flex;justify-content:space-between;gap:16px;margin-top:40px;border-top:1px solid var(--line);padding-top:22px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:11px 18px;font-weight:500;font-size:15px;text-decoration:none;border:1px solid var(--black);color:var(--black);background:var(--white);max-width:48%}
+.btn:hover{background:var(--black);color:#fff}
+.btn.primary{background:var(--black);color:#fff}
+.btn.primary:hover{background:var(--red);border-color:var(--red)}
+.btn small{display:block;font-weight:300;font-size:12px;opacity:.75}
+.related{margin-top:22px;font-size:15px}
+.related a{color:var(--red)}
+
+/* Footer */
+footer{background:var(--bg);border-top:1px solid var(--line);text-align:center;padding:22px;font-size:14px;color:var(--muted)}
+.totop{position:fixed;right:24px;bottom:24px;width:44px;height:44px;background:var(--black);color:#fff;border:0;cursor:pointer;display:none;z-index:40}
+.totop.show{display:grid;place-items:center}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.side{position:fixed;top:var(--header-h);left:0;bottom:0;width:300px;max-height:none;transform:translateX(-100%);transition:transform .2s;z-index:45;box-shadow:4px 0 20px rgba(0,0,0,.15)}
+  nav.side.open{transform:none}
+  .menu-btn{display:grid;place-items:center}
+  main{padding:24px 18px 48px}
+  .brand .title span{display:none}
+  .search{flex:1 1 auto}
+  .btn{max-width:100%}
+}
+@media (max-width:600px){.brand{display:none}.topbar .wrap{gap:12px;padding:0 14px}}
+@media print{
+  .topbar,nav.side,.player,.player-bar,.vtabs,.pager,.totop,.hero,.crumbs{display:none!important}
+  .layout{display:block}
+  main{padding:0}
+  .study{grid-template-columns:1fr}
+  .seek{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <button class="menu-btn" id="menuBtn" aria-label="Apri indice" aria-expanded="false" aria-controls="side">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 5h16M2 10h16M2 15h16"/></svg>
+    </button>
+    <a class="brand" href="#/">
+      <!-- Inserire il logo ufficiale in img/logo.svg (se assente l'immagine viene nascosta) -->
+      <img src="img/logo.svg" alt="Logo" onerror="this.remove()">
+      <span class="title"><b>Guida al portale e-commerce</b><span>Video tutorial e istruzioni passo-passo</span></span>
+    </a>
+    <div class="search" role="search">
+      <label for="q" class="sr-only">Cerca nella guida</label>
+      <input id="q" type="search" placeholder="Cerca nella guida, es. carrello, fatture…" autocomplete="off" aria-controls="sr">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 6 6"/></svg>
+      <div class="search-results" id="sr" role="listbox"></div>
+    </div>
+  </div>
+</header>
+
+<div id="top-banner"></div>
+
+<div class="layout">
+  <nav class="side" id="side" aria-label="Indice della guida"></nav>
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<footer>
+  Guida all'uso del portale e-commerce B2B · I contenuti mostrati nei video provengono da un ambiente di test e sono a solo scopo illustrativo.
+</footer>
+<button class="totop" id="totop" aria-label="Torna su">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l5-5 5 5"/></svg>
+</button>
+
+<script>
+/* ================== CONFIGURAZIONE ==================
+   PORTAL_URL: indirizzo del portale mostrato ai clienti.
+   ATTENZIONE: impostare l'indirizzo di PRODUZIONE prima della pubblicazione. */
+const PORTAL_URL = "https://it-s1.mitsubishielectric.eu/AC_DX/it/EUR/";
+
+/* ================== CONTENUTI ==================
+   Ogni argomento: id, title, summary, videos [{src,label}], body (HTML), aside (HTML opzionale), tags.
+   Passaggi: steps([[secondi, "testo"], [secondi, "testo", indiceVideo], [null, "testo senza video"]])
+   Il numero di secondi collega il passaggio al momento del video in cui viene mostrato. */
+const ui = (t,c='') => `<span class="ui ${c}">${t}</span>`;
+const steps = (arr) => `<ol class="steps">${arr.map(([t,h,v])=>`<li${t!=null?` data-t="${t}" data-v="${v||0}"`:''}>${h}</li>`).join('')}</ol>`;
+
+const CHAPTERS = [
+{ id:"primi-passi", title:"Primi passi", desc:"Raggiungere il portale, orientarsi nella home page, scegliere la lingua e accedere con le proprie credenziali.",
+  topics:[
+  { id:"indirizzo", title:"Raggiungere il portale", summary:"Apri il portale dal browser e salvalo tra i preferiti.",
+    videos:[],
+    body: steps([
+      [null,`Apri il browser del tuo computer (si consiglia una versione aggiornata).`],
+      [null,`Digita nella barra degli indirizzi:<br><a href="${PORTAL_URL}" target="_blank" rel="noopener"><b>${PORTAL_URL}</b></a>`],
+      [null,`Premi <kbd>Invio</kbd>: si apre la home page del portale.`],
+      [null,`Salva la pagina tra i preferiti (<kbd>Ctrl</kbd>+<kbd>D</kbd>) per ritrovarla velocemente.`],
+    ]),
+    tags:"url indirizzo link browser preferiti" },
+
+  { id:"home", title:"La home page", summary:"Come è organizzata la pagina iniziale prima dell'accesso: header, area contenuti e footer.",
+    videos:[{src:"login",label:"Home page"}],
+    body: steps([
+      [0,`<b>Header bar</b> (in alto): il logo, che riporta sempre alla home, il paese, l'icona utente 👤 per accedere e il globo 🌐 per la lingua. Prima dell'accesso il menu prodotti, il carrello e la ricerca non sono ancora visibili.`],
+      [1,`<b>Content area</b>: il banner principale con il pulsante ${ui('Go Shopping','red')} e il messaggio di benvenuto del portale.`],
+      [2,`<b>Footer</b> (in fondo): il collegamento <i>Visita il sito locale più vicino a te</i> e i link di servizio (note legali, cookie, privacy).`],
+    ]),
+    aside:`<div class="callout">Prezzi, disponibilità e funzioni d'acquisto sono visibili solo <b>dopo l'accesso</b>.</div>`,
+    tags:"home pagina iniziale header footer anonimo banner" },
+
+  { id:"lingua", title:"Cambiare la lingua", summary:"Seleziona la lingua di visualizzazione del portale.",
+    videos:[{src:"login",label:"Cambio lingua"}],
+    body: steps([
+      [3,`Nella barra superiore clicca sull'icona del globo 🌐.`],
+      [5,`Si apre il pannello <b>Clicca qui per cambiare la lingua</b>: scegli la lingua desiderata dall'elenco.`],
+      [8,`Il portale viene mostrato nella lingua selezionata. Per chiudere il pannello senza cambiare lingua usa la ✕.`],
+    ]),
+    tags:"lingua language italiano inglese globo traduzione" },
+
+  { id:"accesso", title:"Accedi e recupero password", summary:"Entra nel portale con le tue credenziali o recupera la password.",
+    videos:[{src:"login",label:"Accesso"}],
+    body: steps([
+      [12,`Clicca sull'icona utente 👤 in alto a destra.`],
+      [14,`Nel pannello <b>Il mio account</b> clicca su ${ui('Accedi / Registrati','red')}.`],
+      [17,`Nella sezione <b>Cliente registrato</b> inserisci il tuo <b>indirizzo e-mail</b> e la <b>password</b>.`],
+      [22,`Clicca ${ui('Accedi','dark')}.`],
+      [27,`Ad accesso avvenuto la barra superiore mostra le categorie prodotto, il carrello e la ricerca.`],
+    ]) + `<h3>Password dimenticata</h3>` + steps([
+      [21,`Sotto il campo password trovi i link <b>Hai dimenticato la password?</b> e <b>Richiedi password monouso</b>.`],
+      [null,`Con <i>Hai dimenticato la password?</i> inserisci la tua e-mail: riceverai le istruzioni per impostarne una nuova.`],
+      [null,`Con <i>Richiedi password monouso</i> ricevi una password valida per un singolo accesso.`],
+    ]),
+    aside:`<div class="callout warn"><b>Sicurezza.</b> Non condividere le credenziali con altri colleghi: ogni utente deve avere un proprio accesso. Gli ordini registrano chi li ha inseriti.</div>`,
+    tags:"login accedi registrati password reset recupero dimenticata monouso credenziali email" },
+  ]},
+
+{ id:"navigazione", title:"Navigare nel portale", desc:"Il menu disponibile dopo l'accesso e l'organizzazione delle categorie prodotto.",
+  topics:[
+  { id:"menu", title:"Il menu da utente autenticato", summary:"Le voci della barra superiore dopo l'accesso.",
+    videos:[{src:"menu",label:"Menu"}],
+    body: steps([
+      [2,`<b>Categorie prodotto</b>: <i>Air conditioning, Jet Towel, Riscaldamento, Sistemi di controllo ed accessori, Ventilazione</i>. Passandoci sopra la voce si evidenzia; cliccando si apre il catalogo.`],
+      [7,`<b>Icona utente 👤</b>: apre il menu <b>Il mio account</b> con nome e codice cliente, Rubrica indirizzi, Carrelli salvati, Tracciamento ordini e Disconnetti.`],
+      [10,`<b>Icona carrello 🛒</b>: il numero rosso indica quanti articoli ci sono nel carrello.`],
+      [13,`<b>Globo 🌐</b>: cambio lingua.`],
+      [17,`<b>Lente 🔍</b>: apre il campo di ricerca prodotti.`],
+    ]),
+    tags:"menu barra navigazione header autenticato" },
+
+  { id:"categorie", title:"Le categorie prodotto", summary:"Come si apre il menu delle categorie e come si arriva alle sottocategorie.",
+    videos:[{src:"categories",label:"Categorie"}],
+    body: steps([
+      [2,`Clicca su una categoria (es. <b>Air conditioning</b>): si apre un pannello con le famiglie, es. <i>Residenziale</i> e <i>Commerciale</i>.`],
+      [5,`Scegli una famiglia: a destra compare l'elenco delle sottocategorie.`],
+      [12,`Clicca su una sottocategoria: si apre l'elenco prodotti. In alto il percorso (es. <i>Pagina iniziale / Residenziale / …</i>) ti indica dove sei.`],
+      [22,`Stesso funzionamento per le altre categorie, es. <b>Jet Towel</b> › <i>Jet Towel SLIM</i> o <i>Jet Towel SMART</i>.`],
+      [33,`Con ${ui('Mostra tutti i prodotti →')} vedi l'intera categoria (es. <i>Sistemi di controllo ed accessori</i>).`],
+      [37,`Nei risultati puoi restringere l'elenco con i filtri a sinistra (vedi <a href="#/ricerca-categorie">Ricerca per categorie e filtri</a>).`],
+    ]),
+    tags:"categorie catalogo famiglie sottocategorie air conditioning jet towel riscaldamento ventilazione residenziale commerciale" },
+  ]},
+
+{ id:"account", title:"Il mio account", desc:"Dati anagrafici, password, rubrica indirizzi, carrelli salvati, tracciamento di ordini, fatture e consegne.",
+  topics:[
+  { id:"mio-account", title:"Dettagli account e modifica password", summary:"Consulta i tuoi dati e cambia la password.",
+    videos:[{src:"my-account",label:"Il mio account"}],
+    body: steps([
+      [3,`Clicca sull'icona utente 👤.`],
+      [5,`Il pannello mostra il tuo nome con il codice cliente e le voci <b>Il mio account</b>, <b>Rubrica indirizzi</b>, <b>Carrelli salvati</b>, <b>Tracciamento ordini</b> e ${ui('Disconnetti','red')}.`],
+      [11,`Apri <b>Il mio account › Dettagli account</b>. In alto trovi i collegamenti rapidi alle altre sezioni dell'account.`],
+      [15,`Consulta nome, cognome, e-mail e telefono, l'indirizzo di fatturazione standard, l'indirizzo di spedizione standard e le condizioni di pagamento standard.`],
+      [18,`Se noti dati non corretti usa ${ui('Qualcosa non va? ✉')} per inviare una segnalazione.`],
+      [28,`Per cambiare la password scegli <b>Il mio account › Modifica password</b>, oppure clicca ${ui('Cambia password')} nei dettagli account.`],
+      [32,`Nella pagina <b>Aggiorna password</b> compila <i>Password attuale</i>, <i>Nuova password</i> e <i>Conferma password</i>.`],
+      [36,`Clicca ${ui('Update','dark')} per salvare oppure ${ui('Annulla')}.`],
+    ]),
+    aside:`<div class="callout">I dati anagrafici e le condizioni commerciali non sono modificabili dal portale: per variazioni usa <b>Qualcosa non va?</b>.</div>`,
+    tags:"account dettagli profilo password cambia modifica aggiorna anagrafica fatturazione condizioni pagamento" },
+
+  { id:"rubrica", title:"Rubrica indirizzi", summary:"Gli indirizzi di spedizione associati al tuo account.",
+    videos:[{src:"addresses",label:"Rubrica indirizzi"}],
+    body: steps([
+      [3,`Dal menu 👤 scegli <b>Rubrica indirizzi</b>.`],
+      [7,`Ogni riquadro mostra un indirizzo di spedizione: codice, via, località e CAP.`],
+      [11,`Scorri la pagina per vedere tutti gli indirizzi disponibili.`],
+      [23,`Usa il campo <b>Cerca</b> per filtrare l'elenco, es. per via o città.`],
+      [25,`L'elenco mostra solo gli indirizzi che contengono il testo cercato.`],
+    ]),
+    aside:`<div class="callout tip">Gli indirizzi in rubrica si selezionano al checkout; lì puoi anche inserirne uno nuovo: vedi <a href="#/checkout-indirizzo">Indirizzo di spedizione</a>.</div>`,
+    tags:"rubrica indirizzi spedizione destinazione destinatario cerca" },
+
+  { id:"carrelli-salvati", title:"Carrelli salvati", summary:"Ritrova, cancella o riporta nel carrello i carrelli salvati.",
+    videos:[{src:"saved-cart-add",label:"Carrelli salvati"}],
+    body: steps([
+      [2,`Dal menu 👤 scegli <b>Carrelli salvati</b>.`],
+      [6,`Si apre la <b>Cronologia carrelli</b>: per ogni carrello vedi <b>Creatore</b>, <b>Nome</b>, <b>Data richiesta consegna</b> e le <b>Azioni</b> (ⓘ dettaglio, 🗑 cancella, 🛒 aggiungi al carrello).`],
+      [10,`Per eliminare un carrello clicca 🗑: compare l'<b>Avviso di rimozione</b>. Conferma con ${ui('Sì')} o annulla con ${ui('No')}.`],
+      [14,`Il carrello cancellato scompare dall'elenco.`],
+      [18,`Per riutilizzare un carrello clicca 🛒 sulla sua riga.`],
+      [21,`Compare il messaggio <i>Carrello salvato … aggiunto correttamente</i> e si apre il carrello con tutti i materiali.`],
+    ]),
+    aside:`<div class="callout"><b>Per modificare un carrello salvato:</b> clicca <i>Aggiungi al carrello</i>, apporta le modifiche nel carrello e poi clicca <i>Salva il carrello</i>.</div>`,
+    tags:"carrelli salvati cronologia riutilizza cancella elimina rimozione" },
+
+  { id:"carrello-salvato-dettaglio", title:"Dettaglio carrello salvato", summary:"Apri un carrello salvato, stampalo, invialo via e-mail o porta nel carrello solo alcuni materiali.",
+    videos:[{src:"saved-carts",label:"Dettaglio e selezione"},{src:"saved-cart-print-mail",label:"Stampa ed e-mail"}],
+    body: steps([
+      [8,`Nella Cronologia carrelli clicca <b>ⓘ</b> sulla riga del carrello.`],
+      [22,`Si apre <b>Dettagli carrello</b> con il nome e la data richiesta consegna.`],
+      [29,`${ui('Stampa dettagli carrello')} apre l'anteprima di stampa del carrello.`,1],
+      [34,`${ui('Invia dettagli carrello via e-mail')} invia il riepilogo per posta elettronica.`,1],
+      [36,`Nella tabella dei materiali trovi la casella di selezione, il <b>codice listino</b> e la <b>quantità</b>, che puoi modificare.`],
+      [49,`Seleziona le righe da riutilizzare (o <i>Seleziona tutto</i>) e clicca ${ui('Aggiungi al carrello')}.`],
+      [52,`Compare il messaggio <i>Materiali aggiunti al carrello</i>.`],
+      [59,`I materiali sono ora nel carrello in uso: aprilo dall'icona 🛒.`],
+      [null,`${ui('← Torna alla panoramica')} riporta all'elenco dei carrelli salvati.`],
+    ]),
+    tags:"carrello salvato dettaglio stampa email invia quantità seleziona aggiungi" },
+
+  { id:"ordini", title:"Tracciamento ordini: ricerca ed export", summary:"Cerca i tuoi ordini ed esporta l'elenco in CSV, Excel o PDF.",
+    videos:[{src:"orders-1",label:"Ricerca ordini"},{src:"orders-2",label:"Export risultati"}],
+    body: steps([
+      [7,`Dal menu 👤 apri <b>Tracciamento ordini</b>; le voci disponibili sono <i>Ordini</i>, <i>Fatture</i> e <i>Documenti di consegna</i>.`],
+      [18,`Nella pagina Ordini compila i <b>filtri</b>: numero documento, doc. acquisto cliente, descrizione materiale, <b>Data</b> (es. ultima settimana, ultimo mese) e <b>Stato</b>.`],
+      [20,`Clicca ${ui('Cerca','dark')}.`],
+      [27,`L'elenco mostra <b>Numero ordine</b>, <b>Doc. acquisto cliente</b>, <b>Data inserimento</b>, <b>Valore netto totale</b>, <b>Stato ordine</b> e <b>Inserito da</b>.`],
+      [36,`Clicca sull'intestazione di una colonna per ordinare l'elenco.`],
+      [38,`Il filtro <b>Stato</b> permette di vedere solo gli ordini Aperti, In lavorazione, Completati, Annullati o Spediti.`],
+      [46,`${ui('Reimposta filtro')} riporta i filtri ai valori iniziali.`],
+      [62,`Con <b>Mostra elementi</b> scegli quante righe vedere: 10, 25, 50 o tutte.`],
+      [14,`Esporta l'elenco con i pulsanti ${ui('CSV')} ${ui('Stampa')} ${ui('Copia negli appunti')} ${ui('EXCEL')} ${ui('PDF')}.`,1],
+      [16,`${ui('Stampa')} apre l'anteprima di stampa dell'elenco.`,1],
+      [20,`${ui('PDF')} genera il documento <i>Order list</i> con i risultati.`,1],
+    ]),
+    aside:`<div class="callout">Il campo <b>Doc. acquisto cliente</b> è il riferimento che hai inserito nel carrello: usalo per ritrovare rapidamente un ordine.</div>`,
+    tags:"tracciamento ordini ricerca filtro stato export csv excel pdf stampa appunti" },
+
+  { id:"ordine-dettaglio", title:"Dettaglio ordine e PDF", summary:"Apri un ordine, scarica la stampa ordine e consulta consegne e posizioni.",
+    videos:[{src:"orders-detail",label:"Dettaglio ordine"}],
+    body: steps([
+      [18,`Nell'elenco ordini clicca sulla riga dell'ordine.`],
+      [22,`Si apre <b>Ordine - Dettagli</b>: numero ordine, doc. acquisto cliente, data inserimento, valore netto, inserito da, indirizzo di consegna e di fatturazione.`],
+      [24,`In <b>Downloads</b> clicca <i>Order_….pdf</i> per scaricare la stampa dell'ordine.`],
+      [39,`In <b>Riferimenti › Consegne</b> trovi le note di consegna collegate, con il relativo PDF da scaricare.`],
+      [45,`Più in basso la tabella delle <b>posizioni</b>: materiale, descrizione, quantità, prezzo netto e data di consegna stimata. Puoi filtrarla con <b>Cerca</b> o esportarla con ${ui('Copia negli appunti')} ${ui('EXCEL')}.`],
+      [64,`Cliccando su una nota di consegna apri direttamente il suo dettaglio. Per tornare usa ${ui('← Torna all\'elenco ordini')}.`],
+    ]),
+    tags:"dettaglio ordine pdf download stampa ordine posizioni riferimenti" },
+
+  { id:"fatture", title:"Fatture", summary:"Cerca le fatture e scarica i documenti.",
+    videos:[{src:"orders-invoices",label:"Fatture"}],
+    body: steps([
+      [6,`Dal menu 👤 apri <b>Tracciamento ordini › Fatture</b>.`],
+      [14,`Imposta i filtri (es. periodo) e clicca ${ui('Cerca','dark')}.`],
+      [20,`L'elenco mostra numero fattura, data, valore netto, stato della fattura, condizioni di pagamento e data di scadenza. Puoi esportarlo come per gli ordini.`],
+      [28,`Clicca su una riga: si apre <b>Fattura - Dettagli</b> con i dati della fattura e l'indirizzo di fatturazione.`],
+      [50,`In <b>Downloads</b> scarica il PDF della fattura; in <b>Riferimenti</b> trovi ordini e consegne collegati, con i rispettivi PDF.`],
+      [66,`Il PDF si apre nel visualizzatore del browser, da cui puoi salvarlo o stamparlo.`],
+      [85,`Con le schede <b>Ordine</b>, <b>Nota di consegna</b> e <b>Fattura</b> in alto passi rapidamente da un tipo di documento all'altro.`],
+    ]),
+    tags:"fatture fattura invoice pdf download export scadenza" },
+
+  { id:"consegne", title:"Consegne", summary:"Consulta le note di consegna e scarica il documento di trasporto.",
+    videos:[{src:"orders-deliveries",label:"Consegne"}],
+    body: steps([
+      [4,`Dal menu 👤 apri <b>Tracciamento ordini › Documenti di consegna</b>.`],
+      [8,`Nella scheda <b>Nota di consegna</b> imposta i filtri e clicca ${ui('Cerca','dark')}.`],
+      [17,`Clicca su una riga: si apre <b>Nota di consegna - Dettagli</b> con numero, stato, data e ora di creazione, opzioni di consegna e indirizzo.`],
+      [21,`In <b>Downloads</b> scarica il PDF della consegna (documento di trasporto).`],
+      [29,`In <b>Riferimenti</b> trovi l'ordine e la fattura collegati, ciascuno con il proprio PDF.`],
+      [54,`I PDF si aprono nel browser, pronti da salvare o stampare.`],
+      [75,`Cliccando sul riferimento puoi aprire direttamente l'ordine collegato.`],
+    ]),
+    tags:"consegne delivery nota di consegna ddt documento trasporto spedizione pdf" },
+
+  { id:"logout", title:"Disconnettersi (logout)", summary:"Esci in sicurezza dal portale.",
+    videos:[{src:"logout",label:"Logout"}],
+    body: steps([
+      [4,`Clicca sull'icona utente 👤.`],
+      [6,`Clicca su ${ui('Disconnetti →','red')}.`],
+      [8,`Compare il messaggio <i>Disconnessione effettuata</i>.`],
+      [12,`Torni alla home page come utente non autenticato.`],
+    ]),
+    aside:`<div class="callout warn">Esegui sempre il logout se usi un computer condiviso.</div>`,
+    tags:"logout disconnetti esci uscita" },
+  ]},
+
+{ id:"ricerca", title:"Cercare i prodotti", desc:"Trovare i prodotti per categoria, filtri o codice e leggere prezzi e disponibilità.",
+  topics:[
+  { id:"ricerca-categorie", title:"Ricerca per categorie e filtri", summary:"Naviga il catalogo e restringi i risultati con i filtri (facets).",
+    videos:[{src:"search-facets",label:"Categorie e filtri"}],
+    body: steps([
+      [2,`Apri una categoria dal menu superiore e scegli la sottocategoria.`],
+      [8,`Nella colonna di sinistra trovi i <b>filtri</b> (es. <i>Gamma prodotto</i>); tra parentesi il numero di prodotti.`],
+      [25,`Nel <b>Percorso di categoria</b> clicca <i>Mostra di più</i> per vedere tutte le voci.`],
+      [31,`Clicca un filtro per applicarlo: compare in <b>Filtro applicato</b>; la ✕ lo rimuove.`],
+      [39,`Puoi cambiare categoria in qualsiasi momento dal menu (es. <b>Riscaldamento</b>).`],
+      [46,`Se nessun prodotto corrisponde compare il messaggio <i>Siamo spiacenti, ma non abbiamo trovato nessun risultato</i>: prova un'altra categoria o rimuovi qualche filtro.`],
+    ]),
+    tags:"ricerca categorie filtri facets catalogo percorso gamma" },
+
+  { id:"ricerca-campo", title:"Ricerca per codice o testo", summary:"Usa il campo di ricerca e il carattere jolly *.",
+    videos:[{src:"search-field",label:"Campo di ricerca"}],
+    body: steps([
+      [4,`Clicca sulla lente 🔍 in alto a destra: si apre il campo di ricerca.`],
+      [12,`Digita il codice o parte di esso usando l'asterisco <kbd>*</kbd>, es. <code>*A</code>: mentre scrivi compaiono i suggerimenti con il prezzo.`],
+      [14,`Clicca un suggerimento per aprire direttamente la scheda del prodotto.`],
+      [54,`Esempio: <code>*contr</code> trova i codici che contengono <i>contr</i>.`],
+      [58,`Premi <kbd>Invio</kbd> o la lente per l'elenco completo, es. <i>2 risultati per *control</i>.`],
+      [74,`Esempio: <code>*PUZ*</code> trova tutti i codici che contengono <i>PUZ</i>.`],
+      [82,`Restringi i risultati con i filtri a sinistra (es. <i>Refrigerant › R32</i>).`],
+    ]),
+    aside:`<div class="callout important"><b>Importante: usa l'asterisco.</b> L'asterisco <kbd>*</kbd> sostituisce i caratteri mancanti: <code>PUZ-ZM100*</code> trova i codici che iniziano così, <code>*PUZ*</code> quelli che contengono PUZ. Senza asterisco la ricerca considera solo i codici esatti.</div>`,
+    tags:"ricerca campo codice asterisco jolly wildcard lente cerca suggerimenti" },
+
+  { id:"risultati", title:"La pagina dei risultati", summary:"Filtri, elenco prodotti, prezzi, disponibilità e aggiunta al carrello.",
+    videos:[{src:"search-results",label:"Pagina risultati"}],
+    body: steps([
+      [4,`Apri una categoria (es. ${ui('Mostra tutti i prodotti →')}).`],
+      [28,`A sinistra la <b>colonna filtri</b>; a destra la <b>colonna prodotti</b> con codice, immagine ed etichetta di disponibilità (es. <span class="ui red">OUT OF STOCK</span>). In alto puoi scegliere l'ordinamento e la pagina.`],
+      [28,`Il prezzo mostrato è il <b>prezzo di listino</b>, non quello riservato a te. La disponibilità è calcolata sul <b>mese in corso</b>.`],
+      [43,`Imposta la quantità con − / + e clicca l'icona 🛒 della riga per aggiungere il prodotto.`],
+      [null,`Compare il popup di aggiunta con il <b>prezzo netto</b> riservato a te: scegli ${ui('Checkout','dark')} per andare al carrello oppure ${ui('Continua lo shopping')} per aggiungere altri prodotti.`],
+      [52,`Nel carrello ritrovi i prodotti aggiunti con prezzo netto e date di consegna.`],
+      [72,`Tornando ai risultati puoi continuare ad aggiungere prodotti usando i filtri.`],
+    ]),
+    tags:"risultati ricerca prezzo listino netto disponibilità quantità aggiungi carrello popup out of stock" },
+
+  { id:"dettaglio-prodotto", title:"Pagina dettaglio prodotto", summary:"Dati tecnici, disponibilità e prezzo di listino.",
+    videos:[{src:"product-detail",label:"Dettaglio prodotto"}],
+    body: steps([
+      [8,`Clicca su un prodotto nei risultati: si apre la scheda, con il percorso di navigazione in alto.`],
+      [10,`Trovi codice, etichetta di <b>disponibilità</b> (calcolata sul mese corrente), <b>prezzo di listino</b> e il selettore della quantità.`],
+      [14,`${ui('Espandi immagine ⛶')} mostra l'immagine a tutto schermo.`],
+      [16,`Nella scheda <b>Technical Information</b> trovi i dati tecnici (dimensioni, peso lordo, gamma prodotto…).`],
+      [20,`Se trovi un'informazione errata usa ${ui('Something wrong? ✉')} per segnalarla.`],
+      [30,`Imposta la quantità e clicca 🛒 per aggiungere il prodotto.`],
+      [33,`Il popup <b>Aggiunto al tuo carrello</b> mostra quantità e prezzo; scegli ${ui('Checkout','red')} o ${ui('Continua lo shopping')}.`],
+    ]),
+    tags:"dettaglio prodotto scheda dati tecnici technical information disponibilità prezzo listino immagine" },
+  ]},
+
+{ id:"carrello", title:"Il carrello", desc:"Date di consegna, riferimenti d'ordine, disponibilità, sconti e salvataggio del carrello.",
+  topics:[
+  { id:"minicart", title:"L'icona del carrello", summary:"Visualizza rapidamente il carrello e i materiali contenuti.",
+    videos:[{src:"minicart",label:"Icona carrello"}],
+    body: steps([
+      [4,`L'icona 🛒 in alto a destra riporta in rosso il numero di articoli nel carrello. Cliccala.`],
+      [6,`Il pannello <b>Carrello</b> elenca i materiali con quantità e importo. Clicca ${ui('Vai al carrello →')}.`],
+      [10,`Si apre la pagina carrello con l'<b>ID carrello</b> e il riepilogo: <i>Subtotale, Spese trasporto, Sconto finanziario, IVA, Totale</i>.`],
+      [15,`Se un materiale non è disponibile, in alto compare <i>Controllare carrello, ci sono prodotti senza disponibilità</i> e la riga è segnalata in rosso.`],
+    ]),
+    tags:"icona carrello minicart articoli totale vai al carrello" },
+
+  { id:"data-consegna", title:"Data di consegna richiesta", summary:"Imposta la data di consegna per tutto il carrello o solo per alcune righe.",
+    videos:[{src:"cart-delivery-date",label:"Tutte le posizioni"},{src:"cart-date-header",label:"Solo righe con data di testata"}],
+    body: steps([
+      [9,`Il campo <b>Selezionare la data di consegna richiesta</b> (data di testata del carrello) propone per default il <b>giorno successivo</b> a oggi.`],
+      [11,`Ogni riga mostra la sua <b>data di consegna richiesta</b> e la <b>data di consegna stimata</b>.`],
+      [16,`Clicca nel campo e scegli una nuova data dal calendario.`],
+      [20,`Compare il popup <b>Richiesta data consegna per posizione</b>, che chiede a quali righe applicare la nuova data.`],
+    ]) + `<h3>Opzione 1 · Per tutte le posizioni</h3>` + steps([
+      [20,`Lascia selezionato <b>Per tutte le posizioni</b> e clicca ${ui('Ok')}.`],
+      [23,`Il sistema ricalcola disponibilità e date stimate di tutte le righe.`],
+      [30,`Tutte le righe riportano la nuova data richiesta e la data stimata aggiornata.`],
+    ]) + `<h3>Opzione 2 · Solo le righe con la stessa data della testata</h3>` + steps([
+      [9,`Nell'esempio la data di testata è il 20/11.`,1],
+      [13,`Quattro righe hanno data richiesta 19/11; solo l'ultima (MLP-444W) ha la stessa data della testata, 20/11.`,1],
+      [18,`Si sceglie una nuova data di testata dal calendario (27/11).`,1],
+      [27,`Nel popup si seleziona <b>Per le posizioni la cui data consegna è uguale alla data di testata del carrello</b> e si clicca ${ui('Ok')}.`,1],
+      [29,`La data di testata diventa 27/11.`,1],
+      [34,`Solo la riga che aveva la data di testata (MLP-444W) passa al 27/11; le altre restano al 19/11.`,1],
+    ]) + `<p class="note-small">Il popup offre anche l'opzione <b>Per tutte le nuove posizioni</b>, per applicare la data solo ai materiali che aggiungerai da quel momento.</p>`,
+    aside:`<div class="callout">La data <b>richiesta</b> è quella che desideri; la data <b>stimata</b> è quella calcolata dal sistema in base alla disponibilità.</div>
+<div class="callout tip"><b>Quando usare l'opzione 2.</b> Se alcune righe hanno già una data specifica impostata a mano, l'opzione 2 cambia solo le righe che seguivano la data di testata e lascia invariate le altre.</div>`,
+    tags:"data consegna richiesta testata default domani calendario popup posizione tutte nuove" },
+
+  { id:"campi-carrello", title:"Doc. acquisto, info consegna e note", summary:"I riferimenti da compilare prima del checkout.",
+    videos:[{src:"cart-fields",label:"Campi del carrello"}],
+    body: steps([
+      [8,`<b>Doc. acquisto cliente</b>: il tuo riferimento d'ordine (es. numero ordine interno). È <b>obbligatorio</b>: se è vuoto il campo è evidenziato in rosso con <i>Compilare tutti i campi obbligatori</i>.`],
+      [14,`<b>Informazioni sulla consegna</b>: indicazioni per il trasporto, es. nome e numero di telefono del referente.`],
+      [35,`<b>Note per Amministrazione Vendite</b>: comunicazioni per l'ufficio commerciale relative all'ordine.`],
+      [47,`I dati inseriti restano nel carrello e vengono riportati nell'ordine; il Doc. acquisto lo ritrovi poi in Tracciamento ordini.`],
+    ]),
+    tags:"doc acquisto cliente riferimento informazioni consegna contatto note amministrazione vendite obbligatorio" },
+
+  { id:"data-righe", title:"Data sulle righe e disponibilità", summary:"Modifica la data di una singola riga e gestisci gli errori di disponibilità.",
+    videos:[{src:"cart-line-date",label:"Data per riga"}],
+    body: steps([
+      [8,`Nella colonna <b>Data di consegna richiesta</b> di una riga clicca sulla data.`],
+      [10,`Scegli la nuova data per quella sola riga.`],
+      [12,`Il sistema ricalcola la disponibilità e aggiorna la <b>Data di consegna stimata</b> della riga.`],
+      [null,`Se il materiale non è disponibile compare un messaggio di errore: modifica la data o la quantità, oppure rimuovi la riga con 🗑.`],
+    ]),
+    tags:"data righe posizione disponibilità errore stimata ricalcolo" },
+
+  { id:"split", title:"Disponibilità parziale: split per mese", summary:"Come leggere le quantità ripartite su più mesi.",
+    videos:[{src:"cart-split",label:"Split quantità"}],
+    body: steps([
+      [15,`Nell'esempio si aggiunge un nuovo prodotto al carrello dalla sua scheda.`],
+      [31,`Il prodotto compare come nuova riga del carrello con la sua data stimata.`],
+      [42,`Si aumenta la quantità con il pulsante +.`],
+      [46,`Il sistema ricalcola la disponibilità della riga.`],
+      [50,`Se la quantità è disponibile solo in parte nel mese, la riga mostra la <b>ripartizione</b>: es. <i>5 PZ il 19/11/2026</i> e <i>1 PZ il 01/12/2026</i>.`],
+      [null,`Puoi adeguare quantità o data richiesta per ottenere una consegna unica.`],
+    ]),
+    tags:"split disponibilità parziale mesi ripartizione quantità" },
+
+  { id:"scala-sconti", title:"La scala sconti (%)", summary:"Visualizza gli sconti applicati al prezzo netto.",
+    videos:[{src:"cart-discount-scale",label:"Scala sconti"}],
+    body: steps([
+      [8,`Ogni riga riporta <i>Materiale, Data consegna richiesta, Data consegna stimata, Quantità, Prezzo di listino/pz, Prezzo netto, Totale</i>.`],
+      [10,`Accanto al <b>Prezzo netto</b> c'è l'icona <b>%</b>: passandoci sopra compare la <b>scala sconti</b> applicata al listino (es. −35%, −15%, −6%).`],
+    ]),
+    tags:"sconti percentuale scala prezzo netto listino" },
+
+  { id:"richiesta-sconto", title:"Richiesta di sconto / condizioni speciali", summary:"Chiedi all'agente uno sconto aggiuntivo o condizioni di pagamento particolari.",
+    videos:[{src:"cart-discount-request",label:"Richiesta sconto"}],
+    body: steps([
+      [8,`Nel riquadro a destra del carrello trovi il campo <b>Richiesta di sconto / condizioni di pagamento speciali</b>.`],
+      [20,`Scrivi la tua richiesta, es. lo sconto desiderato e su quali materiali.`],
+      [34,`Prosegui con ${ui('Checkout','dark')} come di consueto.`],
+    ]),
+    aside:`<div class="callout important"><b>Attenzione.</b> Un ordine con richiesta di sconto viene messo <b>in attesa (pending)</b> e segue un iter di approvazione interno prima di essere lavorato.</div>`,
+    tags:"richiesta sconto condizioni pagamento speciali agente pending approvazione" },
+
+  { id:"salva-carrello", title:"Salvare il carrello", summary:"Conserva il carrello per riutilizzarlo in seguito.",
+    videos:[{src:"cart-save",label:"Salva carrello"}],
+    body: steps([
+      [10,`In fondo al carrello clicca ${ui('Salva il carrello')}.`],
+      [16,`Nel popup <b>Salva il carrello attuale</b> inserisci un nome (ID di riferimento) e clicca ${ui('Salva')}.`],
+      [46,`Il carrello compare in <b>Carrelli salvati › Cronologia carrelli</b>.`],
+      [94,`Dopo il salvataggio il carrello in uso è vuoto, pronto per un nuovo ordine.`],
+      [109,`Quando ti serve, riportalo nel carrello dalla Cronologia: compare <i>Carrello salvato … aggiunto correttamente</i>.`],
+      [null,`Con ${ui('Svuota carrello 🗑')} rimuovi invece tutti i materiali senza salvarli.`],
+    ]),
+    tags:"salva carrello salvato nome svuota" },
+  ]},
+
+{ id:"checkout", title:"Checkout e invio ordine", desc:"Indirizzo, spedizione, pagamento, riepilogo e conferma dell'ordine.",
+  topics:[
+  { id:"checkout-indirizzo", title:"Indirizzo di spedizione", summary:"Usa l'indirizzo predefinito, scegline uno dalla rubrica o creane uno nuovo.",
+    videos:[{src:"checkout-address",label:"Indirizzo"}],
+    body: steps([
+      [28,`Prima del checkout compila nel carrello i campi richiesti (almeno il Doc. acquisto cliente).`],
+      [36,`Clicca ${ui('Checkout','dark')}.`],
+      [48,`Si apre <b>Cassa sicura</b>: le fasi in alto, il <b>Riepilogo ordine</b> a destra. La prima fase è <b>Indirizzo di spedizione</b>, con l'indirizzo predefinito già selezionato.`],
+      [61,`${ui('Rubrica indirizzi')} apre l'elenco degli indirizzi (con campo Cerca): clicca ${ui('Spedisci a questo indirizzo')} su quello desiderato.`],
+      [72,`L'indirizzo scelto compare in <b>Indirizzo selezionato</b>.`],
+      [81,`${ui('Crea nuovo indirizzo')} apre il modulo per un indirizzo non presente in rubrica.`],
+      [97,`Compila Paese, Nome, Indirizzo, Numero civico, Città e CAP (i campi con * sono obbligatori). Puoi usare ${ui('Salva come predefinito')}, poi clicca ${ui('Continua','dark')}.`],
+      [107,`Compare <i>Indirizzo di consegna selezionato</i>: clicca ${ui('Continua','dark')} per passare alla fase successiva.`],
+    ]),
+    tags:"checkout indirizzo spedizione rubrica nuovo cassa sicura" },
+
+  { id:"checkout-spedizione", title:"Metodo di spedizione", summary:"Ritiro (pickup) o consegna standard: come cambiano le spese.",
+    videos:[{src:"checkout-shipping",label:"Spedizione"}],
+    body: steps([
+      [8,`Nella fase <b>Metodo di spedizione</b> scegli tra <b>PICKUP</b> (ritiro) e <b>CONSEGNA STANDARD</b>. Sotto è indicato il peso lordo totale.`],
+      [21,`Con <b>PICKUP</b> le spese di trasporto vengono tolte: nel riepilogo a destra il totale si riduce.`],
+      [29,`Con <b>CONSEGNA STANDARD</b> le spese di trasporto vengono aggiunte.`],
+      [31,`Clicca ${ui('Continua','dark')}.`],
+    ]),
+    tags:"metodo spedizione pickup ritiro standard spese trasporto peso" },
+
+  { id:"checkout-pagamento", title:"Metodo di pagamento", summary:"Scegli la condizione di pagamento e verifica i totali.",
+    videos:[{src:"checkout-payment",label:"Pagamento"}],
+    body: steps([
+      [9,`Nella fase <b>Tipo di pagamento</b> sono elencate le condizioni disponibili per il tuo account (es. pagamento anticipato, 30/60/90 gg fine mese…).`],
+      [22,`Seleziona quella desiderata: i <b>totali si aggiornano</b>. Ad esempio lo <i>Sconto finanziario</i> può sparire con un pagamento dilazionato.`],
+      [40,`Tornando alla condizione precedente lo sconto finanziario ricompare.`],
+      [null,`Clicca ${ui('Continua','dark')}.`],
+    ]),
+    tags:"metodo pagamento condizioni sconto finanziario totali anticipato" },
+
+  { id:"checkout-riepilogo", title:"Riepilogo e modifica dati", summary:"Controlla tutto prima dell'invio e correggi se serve.",
+    videos:[{src:"checkout-summary",label:"Riepilogo"}],
+    body: steps([
+      [7,`Nella fase <b>Riepilogo ordine</b>, sezione <b>Revisione finale</b>, verifica doc. acquisto, metodo di pagamento, testo dell'intestazione, note, indirizzo di spedizione e metodo di consegna.`],
+      [16,`Più in basso controlla gli articoli con date, quantità e prezzi.`],
+      [26,`Per correggere un dato clicca l'icona ✎ del blocco: torni alla fase relativa.`],
+      [48,`Modifica il dato (es. indirizzo dalla Rubrica) e clicca ${ui('Continua','dark')} fino a tornare al riepilogo.`],
+      [60,`Il riepilogo mostra i dati aggiornati.`],
+    ]),
+    tags:"riepilogo revisione finale modifica dati controllo verifica" },
+
+  { id:"checkout-conferma", title:"Invio e conferma ordine", summary:"Accetta i termini, invia l'ordine e consulta la conferma.",
+    videos:[{src:"checkout-confirm",label:"Conferma"}],
+    body: steps([
+      [2,`Spunta <b>Termini e condizioni</b> (obbligatorio).`],
+      [6,`Clicca ${ui('Invia ordine','dark')}.`],
+      [null,`Il sistema <b>verifica nuovamente disponibilità e quantità</b>: se un materiale non è più disponibile viene mostrato un errore e l'ordine non viene inviato.`],
+      [8,`Se è tutto corretto compare <i>L'ordine è stato effettuato con successo</i> e si apre la <b>Conferma d'ordine</b> con il numero d'ordine.`],
+      [13,`Trovi doc. acquisto, indirizzo di spedizione, metodo di pagamento, opzioni di fornitura e note.`],
+      [20,`Più in basso gli <b>articoli dell'ordine</b> con sconti e totali.`],
+      [29,`${ui('Stampa')} apre l'anteprima di stampa della conferma.`],
+      [35,`${ui('Continua lo shopping →')} riporta alla home.`],
+    ]),
+    aside:`<div class="callout tip">Annota il <b>numero d'ordine</b>: lo ritrovi anche in <a href="#/ordini">Tracciamento ordini</a>.</div>`,
+    tags:"invia ordine conferma termini condizioni numero ordine errore disponibilità stampa" },
+  ]},
+
+{ id:"glossario", title:"Glossario", desc:"I termini più usati nel portale.",
+  topics:[
+  { id:"termini", title:"Termini principali", summary:"Prezzi, date, sconti e stati dell'ordine.",
+    videos:[],
+    body:`
+<dl class="gloss">
+<dt>Prezzo di listino</dt><dd>Prezzo pubblico del prodotto, mostrato in ricerca e nella scheda prodotto.</dd>
+<dt>Prezzo netto</dt><dd>Prezzo riservato al tuo account, dopo l'applicazione della scala sconti. Visibile nel popup di aggiunta e nel carrello.</dd>
+<dt>Scala sconti</dt><dd>Gli sconti percentuali applicati in sequenza al listino (icona % nel carrello).</dd>
+<dt>Sconto finanziario</dt><dd>Sconto legato alla condizione di pagamento scelta.</dd>
+<dt>Disponibilità</dt><dd>Quantità disponibile calcolata sul mese corrente.</dd>
+<dt>Data di consegna richiesta</dt><dd>La data in cui desideri ricevere la merce (default: giorno successivo).</dd>
+<dt>Data di consegna stimata</dt><dd>La data calcolata dal sistema in base alla disponibilità.</dd>
+<dt>Doc. acquisto cliente</dt><dd>Il tuo riferimento d'ordine, obbligatorio nel carrello.</dd>
+<dt>Pending</dt><dd>Ordine in attesa di approvazione interna, ad esempio per una richiesta di sconto.</dd>
+</dl>`,
+    tags:"glossario termini definizioni" },
+  ]},
+];
+
+/* ================== MOTORE ================== */
+const FLAT = [];
+CHAPTERS.forEach((c,ci)=>c.topics.forEach(t=>{t.ch=c;t.ci=ci;FLAT.push(t);}));
+const byId = Object.fromEntries(FLAT.map(t=>[t.id,t]));
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => s.replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const strip = h => h.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ');
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const fmt = s => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+let WIDE = false;
+try { WIDE = localStorage.getItem('help-wide') === '1'; } catch(e) {}
+
+function renderNav(active){
+  $('#side').innerHTML = `<div class="ch"><ul><li><a href="#/" class="${!active?'active':''}" style="padding-left:22px">🏠 Panoramica</a></li></ul></div>` +
+  CHAPTERS.map((c,i)=>`
+    <div class="ch">
+      <div class="ch-title"><span class="n">${i+1}</span>${esc(c.title)}</div>
+      <ul>${c.topics.map(t=>`<li><a href="#/${t.id}" class="${active===t.id?'active':''}"><span>${esc(t.title)}</span>${t.videos.length?'<span class="vid">▶</span>':''}</a></li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+function setBanner(html){ $('#top-banner').innerHTML = html; }
+
+function renderHome(){
+  document.title = 'Guida al portale e-commerce B2B';
+  setBanner(`<section class="hero"><h1>Guida al portale e-commerce B2B</h1>
+    <p>Video brevi e istruzioni passo-passo per cercare i prodotti, gestire il carrello e inviare i tuoi ordini in autonomia.</p></section>`);
+  const nVid = new Set(FLAT.flatMap(t=>t.videos.map(v=>v.src))).size;
+  $('#main').innerHTML = `
+  <div class="intro">
+    <p class="eyebrow">Benvenuto</p>
+    <h1 style="margin-top:0">Da dove vuoi iniziare?</h1>
+    <p class="lead">La guida segue il percorso tipico di un ordine: dall'accesso al portale fino alla conferma. Ogni argomento ha un breve video (${nVid} in totale) affiancato dai passaggi da seguire: clicca <span class="seek demo">▶ 0:12</span> accanto a un passaggio per vedere quel momento nel video.</p>
+  </div>
+  <div class="cards">
+    ${CHAPTERS.map((c,i)=>`<a class="card" href="#/${c.topics[0].id}">
+      <h3><span class="n">${i+1}</span>${esc(c.title)}</h3>
+      <p>${esc(c.desc)}</p>
+      <span class="go">${c.topics.length} argomenti →</span></a>`).join('')}
+  </div>
+  <div class="quick">
+    <div><h3>🔎 Ricerca con asterisco</h3><p>Nel campo di ricerca usa <b>*</b> come jolly, es. PUZ-ZM100* oppure *PUZ*.</p></div>
+    <div><h3>📅 Disponibilità</h3><p>La disponibilità è calcolata sul mese in corso; nel carrello vedi la data stimata per ogni riga.</p></div>
+    <div><h3>💶 Prezzi</h3><p>In ricerca vedi il prezzo di listino; il tuo prezzo netto compare all'aggiunta al carrello.</p></div>
+  </div>`;
+}
+
+function videoTag(v){
+  return `<video controls preload="metadata" playsinline poster="img/${v.src}.jpg" aria-label="Video: ${esc(v.label)}">
+    <source src="video/${v.src}.mp4" type="video/mp4">
+    Il tuo browser non supporta la riproduzione video. <a href="video/${v.src}.mp4">Scarica il video</a>.
+  </video>`;
+}
+
+function renderTopic(t){
+  document.title = `${t.title} · Guida al portale`;
+  const idx = FLAT.indexOf(t), prev = FLAT[idx-1], next = FLAT[idx+1];
+  setBanner(`<div class="crumbs"><div class="wrap"><a href="#/">Guida</a><span class="sep">/</span>${esc(t.ch.title)}<span class="sep">/</span>${esc(t.title)}</div></div>`);
+  const hasVideo = t.videos.length > 0;
+  const tabs = t.videos.length>1 ? `<div class="vtabs" role="tablist">${t.videos.map((v,i)=>`<button role="tab" aria-selected="${i===0}" data-i="${i}">${i+1}. ${esc(v.label)}</button>`).join('')}</div>` : '';
+  const media = hasVideo ? `
+    <div class="media">
+      ${tabs}
+      <div class="player" id="player">${videoTag(t.videos[0])}</div>
+      <div class="player-bar">
+        <span class="label">Video senza audio · clicca ▶ accanto a un passaggio per vederlo</span>
+        <span class="rates">${[0.75,1,1.5].map(r=>`<button class="chip" data-rate="${r}" aria-pressed="${r===1}" title="Velocità di riproduzione">${r}×</button>`).join('')}</span>
+        <button class="chip" id="wideBtn" aria-pressed="${WIDE}" title="Mostra il video a tutta larghezza">⤢ Video grande</button>
+      </div>
+    </div>` : '';
+  $('#main').innerHTML = `
+  <article class="topic">
+    <p class="eyebrow">${t.ci+1}. ${esc(t.ch.title)}</p>
+    <h1>${esc(t.title)}</h1>
+    <p class="lead">${esc(t.summary)}</p>
+    <div class="study ${hasVideo?'':'novid'} ${WIDE?'wide':''}" id="study">
+      ${media}
+      <div class="text">
+        <div class="panel"><h2>Passo per passo</h2>${t.body}</div>
+        ${t.aside||''}
+        <div class="related"><b>Altri argomenti in questa sezione</b><br>
+        ${t.ch.topics.filter(x=>x!==t).map(x=>`<a href="#/${x.id}">${esc(x.title)}</a>`).join('<br>')}</div>
+      </div>
+    </div>
+    <nav class="pager" aria-label="Argomento precedente e successivo">
+      ${prev?`<a class="btn" href="#/${prev.id}">← <span><small>Precedente</small>${esc(prev.title)}</span></a>`:'<span></span>'}
+      ${next?`<a class="btn primary" href="#/${next.id}"><span><small>Successivo</small>${esc(next.title)}</span> →</a>`:`<a class="btn primary" href="#/">Torna alla panoramica →</a>`}
+    </nav>
+  </article>`;
+  if (!hasVideo) return;
+
+  let cur = 0, rate = 1;
+  const multi = t.videos.length > 1;
+  const stepEls = $$('#study li[data-t]');
+  // pulsante ▶ per ogni passaggio collegato al video
+  stepEls.forEach(li=>{
+    const s = +li.dataset.t, v = +li.dataset.v;
+    const b = document.createElement('button');
+    b.className = 'seek'; b.type = 'button';
+    b.innerHTML = `▶ ${multi?`<small>video ${v+1}</small> `:''}${fmt(s)}`;
+    b.title = 'Guarda questo passaggio nel video';
+    b.onclick = (e)=>{ e.stopPropagation(); seek(v, s); };
+    li.prepend(b);
+    li.classList.add('linked');
+    li.onclick = (e)=>{ if(!e.target.closest('a,button')) seek(v, s); };
+  });
+  const vid = ()=>$('#player video');
+  function bind(){
+    const v = vid(); v.playbackRate = rate;
+    v.addEventListener('timeupdate', highlight);
+    v.addEventListener('seeked', highlight);
+  }
+  function switchVideo(i){
+    if (i === cur) return;
+    cur = i;
+    $('#player').innerHTML = videoTag(t.videos[i]); bind();
+    $$('.vtabs button').forEach(x=>x.setAttribute('aria-selected', +x.dataset.i===i));
+    highlight();
+  }
+  function seek(i, s){
+    switchVideo(i);
+    const v = vid();
+    const go = ()=>{ try{ v.currentTime = Math.max(0, s - 0.3); }catch(e){} v.play().catch(()=>{}); };
+    if (v.readyState >= 1) go(); else v.addEventListener('loadedmetadata', go, {once:true});
+    const r = $('#player').getBoundingClientRect();
+    const hh = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+    if (r.top < hh || r.bottom > innerHeight) $('#player').scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  function highlight(){
+    const v = vid(); const ct = v ? v.currentTime : 0;
+    let best = -1;
+    stepEls.forEach(li=>{ const s=+li.dataset.t; if (+li.dataset.v===cur && s-0.4<=ct && s>best) best=s; });
+    stepEls.forEach(li=>li.classList.toggle('active', +li.dataset.v===cur && +li.dataset.t===best && (ct>0.2 || best>0)));
+  }
+  bind();
+  $$('.chip[data-rate]').forEach(b=>b.onclick=()=>{
+    rate = +b.dataset.rate; vid().playbackRate = rate;
+    $$('.chip[data-rate]').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  });
+  $$('.vtabs button').forEach(b=>b.onclick=()=>switchVideo(+b.dataset.i));
+  $('#wideBtn').onclick = ()=>{
+    WIDE = !WIDE; try{ localStorage.setItem('help-wide', WIDE?'1':'0'); }catch(e){}
+    $('#study').classList.toggle('wide', WIDE); $('#wideBtn').setAttribute('aria-pressed', WIDE);
+  };
+}
+
+function route(){
+  const id = location.hash.replace(/^#\/?/,'');
+  const t = byId[id];
+  $$('video').forEach(v=>v.pause());
+  if (t) renderTopic(t); else renderHome();
+  renderNav(t && t.id);
+  $('#side').classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded','false');
+  window.scrollTo(0,0);
+  const a = $('#side a.active'); if (a) a.scrollIntoView({block:'nearest'});
+}
+
+/* Ricerca */
+const INDEX = FLAT.map(t=>({t, hay: norm([t.title,t.summary,t.tags,t.ch.title,strip(t.body),strip(t.aside||'')].join(' '))}));
+const q = $('#q'), sr = $('#sr');
+q.addEventListener('input', ()=>{
+  const terms = norm(q.value.trim()).split(/\s+/).filter(Boolean);
+  if (!terms.length){ sr.classList.remove('open'); return; }
+  const res = INDEX.map(o=>{
+    let score = 0;
+    for (const w of terms){ if(!o.hay.includes(w)) return null; if (norm(o.t.title).includes(w)) score+=3; if (norm(o.t.tags).includes(w)) score+=2; score+=1; }
+    return {t:o.t, score};
+  }).filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,8);
+  sr.innerHTML = res.length ? res.map(r=>`<a href="#/${r.t.id}" role="option"><small>${esc(r.t.ch.title)}</small>${esc(r.t.title)}</a>`).join('') : '<div class="none">Nessun risultato. Prova con un altro termine.</div>';
+  sr.classList.add('open');
+});
+q.addEventListener('keydown', e=>{ if(e.key==='Enter'){ const a = sr.querySelector('a'); if(a){ location.hash = a.getAttribute('href'); sr.classList.remove('open'); q.value=''; q.blur(); } } if(e.key==='Escape'){ sr.classList.remove('open'); }});
+sr.addEventListener('click', ()=>{ sr.classList.remove('open'); q.value=''; });
+document.addEventListener('click', e=>{ if(!e.target.closest('.search')) sr.classList.remove('open'); });
+
+$('#menuBtn').onclick = ()=>{ const o = $('#side').classList.toggle('open'); $('#menuBtn').setAttribute('aria-expanded', o); };
+const totop = $('#totop');
+window.addEventListener('scroll', ()=>totop.classList.toggle('show', scrollY>500), {passive:true});
+totop.onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
+
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
